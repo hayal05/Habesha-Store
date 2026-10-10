@@ -19,10 +19,10 @@ export async function getHomeData() {
     rows(`${CARD}
       JOIN download_clicks k ON k.app_id = a.id AND k.created_at >= now() - interval '30 days'
       WHERE a.status = 'published'
-      GROUP BY a.id, d.name ORDER BY COUNT(k.id) DESC, a.name LIMIT 6`),
+      GROUP BY a.id, d.name ORDER BY COUNT(k.id) DESC, a.name LIMIT 12`),
 
     rows(`${CARD}
-      WHERE a.status = 'published' ORDER BY a.updated_at DESC, a.id DESC LIMIT 6`),
+      WHERE a.status = 'published' ORDER BY a.updated_at DESC, a.id DESC LIMIT 12`),
 
     rows(`${CARD}
       WHERE a.status = 'published' AND a.featured = 1 ORDER BY a.updated_at DESC LIMIT 3`),
