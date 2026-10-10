@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { redirectTo } from '@/lib/redirect';
 import { getDeveloper, sameOrigin, expiredPath } from '@/lib/auth';
 import { getOwnApp, listCategories, toIds, checkScreenshotCount, saveApp } from '@/lib/queries';
 import { parseApp } from '@/lib/publish';
@@ -14,7 +15,7 @@ const NOTICES = ['created', 'saved'];
 export async function POST(request) {
   if (!sameOrigin(request)) return new Response('Forbidden', { status: 403 });
   const wantsJson = request.headers.get('accept')?.includes('application/json');
-  const go = (path) => NextResponse.redirect(new URL(path, request.url), 303);
+  const go = (path) => redirectTo(path);
   const fail = (status, message, errors = {}, redirect) => wantsJson ? NextResponse.json({ message, errors, ...([401, 404].includes(status) && { redirect }) }, { status }) : go(redirect);   // JSON only sends the browser away for sign-in or a missing app
 
   const developer = await getDeveloper();
