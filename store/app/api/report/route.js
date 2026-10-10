@@ -1,3 +1,4 @@
+import { redirectTo } from '@/lib/redirect';
 import { addReport } from '@/lib/queries';
 
 export async function POST(request) {
@@ -5,5 +6,5 @@ export async function POST(request) {
   const id = String(form.get('app') || '');
   const ok = await addReport(id, String(form.get('reason') || ''), form.get('details'));
   const to = ok ? `/apps/${id}/report?sent=1` : `/apps/${id}/report`;
-  return Response.redirect(new URL(to, request.url), 303);
+  return redirectTo(to);
 }
