@@ -1,0 +1,186 @@
+/* ==========================================================================
+   Habesha Store: Design Tokens
+   Single source of truth for color, type, spacing, radii, shadows, layout.
+   Every page (store, app details, auth, dashboard) must use these tokens.
+   Never hard-code a color, size, or radius in a component.
+
+   Contrast (WCAG AA, 4.5:1 for text) verified for the pairs marked [AA].
+   ========================================================================== */
+
+:root {
+  /* ---------- Brand (Ethiopian green, primary) ---------- */
+  --brand-50:  #E8F5EE;
+  --brand-100: #CDE9DA;
+  --brand-500: #14935A;
+  --brand-600: #0B7A43;   /* primary buttons, links. White on it: 5.41 [AA] */
+  --brand-700: #096536;   /* hover / pressed.        White on it: 7.18 [AA] */
+  --brand-800: #07502C;
+
+  /* ---------- Accent (Ethiopian gold, use sparingly: logo, highlights) ---------- */
+  --accent-100: #FBEFC9;
+  --accent-500: #E2A81B;
+  --accent-700: #8A5300;  /* text on --warning-bg: 5.80 [AA] */
+
+  /* Ethiopian flag colors: brand stripe and pattern only, never for UI state */
+  --flag-green: var(--brand-600);
+  --flag-gold:  var(--accent-500);
+  --flag-red:   #C2271D;
+
+  /* ---------- Neutrals ---------- */
+  --neutral-0:   #FFFFFF;
+  --neutral-50:  #F7F8FA;
+  --neutral-100: #EEF0F3;
+  --neutral-200: #E1E4E9;
+  --neutral-300: #CBD0D8;
+  --neutral-400: #98A0AE;
+  --neutral-500: #667085;  /* on white 4.97, on neutral-50 4.68 [AA] */
+  --neutral-600: #4B5563;  /* on white 7.56 [AA] */
+  --neutral-700: #343B47;
+  --neutral-800: #1F2530;
+  --neutral-900: #14181F;  /* on white 17.79 [AA] */
+
+  /* ---------- Semantic ---------- */
+  --success:    #096536;  --success-bg: #E8F5EE;   /* 6.40 [AA] */
+  --warning:    #8A5300;  --warning-bg: #FFF4DD;   /* 5.80 [AA] */
+  --danger:     #C2271D;  --danger-bg:  #FDECEA;   /* on white 5.83 [AA] */
+  --danger-text: #A5201A;                          /* on --danger-bg 6.51 [AA] */
+  --info:       #1D5FBF;  --info-bg:    #E8F0FC;
+
+  /* ---------- Platform badges ---------- */
+  --badge-android-fg: #0B6B3A;  --badge-android-bg: #E6F4EA;  /* 5.82 [AA] */
+  --badge-ios-fg:     #1F2937;  --badge-ios-bg:     #EEF0F3;  /* 12.86 [AA] */
+
+  /* ---------- Role aliases (components use THESE, not the raw scales) ---------- */
+  --color-bg:             var(--neutral-50);   /* page background */
+  --color-surface:        var(--neutral-0);    /* cards, header, inputs */
+  --color-surface-muted:  var(--neutral-100);  /* skeletons, hover rows */
+  --color-border:         var(--neutral-200);
+  --color-border-strong:  var(--neutral-300);
+  --color-control-border: #7C8596;   /* 3.7:1 on white, 3.5 on neutral-50: boundary of inputs, search and upload areas (WCAG 1.4.11 needs 3:1) */
+  --color-text:           var(--neutral-900);
+  --color-text-muted:     var(--neutral-600);
+  --color-text-subtle:    var(--neutral-500);
+  --color-primary:        var(--brand-600);
+  --color-primary-hover:  var(--brand-700);
+  --color-primary-soft:   var(--brand-50);
+  --color-on-primary:     var(--neutral-0);
+  --color-focus:          var(--brand-500);
+  --color-overlay:        rgb(20 24 31 / 0.5);
+
+  /* ---------- Typography ---------- */
+  /* System stack: no external font request, fast first paint.
+     Noto Sans Ethiopic is listed so Amharic text renders consistently. */
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans",
+               "Noto Sans Ethiopic", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Type scale (rem; base 16px) */
+  --text-xs:   0.75rem;    /* 12  badges, captions */
+  --text-sm:   0.8125rem;  /* 13  meta, table cells */
+  --text-base: 0.9375rem;  /* 15  body */
+  --text-md:   1rem;       /* 16  inputs (prevents iOS zoom), card titles */
+  --text-lg:   1.125rem;   /* 18  section titles */
+  --text-xl:   1.375rem;   /* 22  page titles */
+  --text-2xl:  1.75rem;    /* 28  app name on details page, intro heading */
+
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+
+  --leading-tight:  1.25;
+  --leading-snug:   1.4;
+  --leading-normal: 1.55;
+
+  --tracking-tight: -0.01em;
+
+  /* ---------- Spacing (4px base) ---------- */
+  --space-0: 0;
+  --space-1: 0.25rem;  /*  4 */
+  --space-2: 0.5rem;   /*  8 */
+  --space-3: 0.75rem;  /* 12 */
+  --space-4: 1rem;     /* 16 */
+  --space-5: 1.25rem;  /* 20 */
+  --space-6: 1.5rem;   /* 24 */
+  --space-8: 2rem;     /* 32 */
+  --space-10: 2.5rem;  /* 40 */
+  --space-12: 3rem;    /* 48 */
+  --space-16: 4rem;    /* 64 */
+
+  /* ---------- Radii ---------- */
+  --radius-sm:   6px;     /* badges, small chips */
+  --radius-md:   10px;    /* buttons, inputs */
+  --radius-lg:   14px;    /* cards, panels */
+  --radius-icon: 22%;     /* app icons (squircle-like, scales with size) */
+  --radius-full: 9999px;  /* pills, avatars */
+
+  /* ---------- Borders ---------- */
+  --border-width: 1px;
+  --border: var(--border-width) solid var(--color-border);
+
+  /* ---------- Shadows (restrained) ---------- */
+  --shadow-sm: 0 1px 2px rgb(20 24 31 / 0.06);
+  --shadow-md: 0 4px 12px rgb(20 24 31 / 0.08);
+  --shadow-lg: 0 12px 32px rgb(20 24 31 / 0.14);  /* menus, drawers, dialogs */
+
+  /* ---------- Controls ---------- */
+  --control-height:    44px;  /* inputs and buttons: touch-friendly minimum */
+  --control-height-sm: 36px;  /* compact buttons in tables (pair with padded hit area) */
+  --focus-ring: 0 0 0 3px rgb(20 147 90 / 0.35);
+  --focus-outline: 2px solid var(--color-focus);
+  --focus-offset: 2px;
+
+  /* ---------- App icon sizes ---------- */
+  --icon-sm: 40px;   /* dashboard list rows */
+  --icon-md: 64px;   /* store cards */
+  --icon-lg: 96px;   /* details page (use 112px+ via clamp if desired) */
+
+  /* ---------- Layout ---------- */
+  --page-max:    1200px;
+  --page-gutter: var(--space-4);  /* widened at larger breakpoints below */
+  --header-height: 60px;
+  --sidebar-width: 220px;
+  --content-narrow: 720px;        /* forms, auth, long text */
+
+  /* ---------- Motion ---------- */
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+
+  /* ---------- Layering ---------- */
+  --z-sticky:  10;
+  --z-header:  20;
+  --z-drawer:  30;
+  --z-modal:   40;
+  --z-toast:   50;
+}
+
+/* ==========================================================================
+   Breakpoints (mobile-first)
+   CSS variables cannot be used inside @media queries, so use these literal
+   values everywhere and keep them identical across all stylesheets:
+
+     base            < 600px    phone
+     @media (min-width: 600px)  large phone / small tablet
+     @media (min-width: 900px)  tablet landscape / small desktop (sidebar appears)
+     @media (min-width: 1200px) desktop
+   ========================================================================== */
+
+@media (min-width: 600px) {
+  :root { --page-gutter: var(--space-6); }
+}
+
+@media (min-width: 900px) {
+  :root {
+    --page-gutter: var(--space-8);
+    --header-height: 64px;
+  }
+}
+
+/* Reduced motion: collapse durations globally so every transition honors it. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-base: 0ms;
+  }
+}

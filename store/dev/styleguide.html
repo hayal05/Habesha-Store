@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Habesha Store: Style guide</title>
+  <script>document.documentElement.classList.add('has-js')</script>
+  <link rel="icon" href="../public/brand/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../public/tokens.css">
+  <link rel="stylesheet" href="../public/base.css">
+  <link rel="stylesheet" href="../public/brand.css">
+  <link rel="stylesheet" href="../public/components.css">
+  <style>
+    /* Style guide layout only (not part of the product) */
+    .sg-section { padding-block: var(--space-6); border-top: var(--border); }
+    .sg-section > h2 { margin-bottom: var(--space-4); }
+    .sg-row { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+    .sg-label { font-size: var(--text-xs); color: var(--color-text-subtle); text-transform: uppercase; letter-spacing: .04em; margin: var(--space-4) 0 var(--space-2); }
+    .sg-form { max-width: 420px; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="brand-stripe"></div>
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="logo site-header__brand" href="#" aria-label="Habesha Store home"><img class="logo__mark" src="../public/brand/logo-mark.svg" alt=""><span class="logo__name">Habesha <span>Store</span></span></a>
+
+      <button class="btn btn--secondary btn--icon menu-btn" type="button" data-menu-toggle aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+        <svg class="icon-open" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 5.5h14M3 10h14M3 14.5h14"/></svg>
+        <svg class="icon-close" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"/></svg>
+      </button>
+
+      <form class="site-search" role="search" action="#" data-autosubmit onsubmit="return false">
+        <div class="search">
+          <svg class="search__icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="9" r="5.5"/><path d="M13.5 13.5L17 17"/></svg>
+          <label class="visually-hidden" for="q">Search apps</label>
+          <input class="search__input" id="q" type="search" name="q" placeholder="Search apps" autocomplete="off">
+        </div>
+        <fieldset class="platform-filter">
+          <legend class="visually-hidden">Platform</legend>
+          <label class="platform-filter__opt"><input type="radio" name="platform" value="" checked><span>All</span></label>
+          <label class="platform-filter__opt"><input type="radio" name="platform" value="android"><span>Android</span></label>
+          <label class="platform-filter__opt"><input type="radio" name="platform" value="ios"><span>iOS</span></label>
+        </fieldset>
+      </form>
+
+      <nav class="site-nav" id="site-nav" aria-label="Primary">
+        <a class="btn btn--ghost" href="#">Sign in</a>
+        <a class="btn btn--primary" href="#">Publish app</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="container" style="padding-block: var(--space-8)">
+    <h1>Style guide</h1>
+    <p style="color: var(--color-text-muted)">Living reference for every component. Dev-only page.</p>
+
+    <section class="sg-section" aria-labelledby="sg-header">
+      <h2 id="sg-header">Header, search, platform filter</h2>
+      <p style="color: var(--color-text-muted)">The header above is the live component. Resize the window: below 900px it uses two rows and a menu button; from 900px it is one sticky row.</p>
+    </section>
+
+    <section class="sg-section" aria-labelledby="sg-cards">
+      <h2 id="sg-cards">App cards</h2>
+      <p style="color: var(--color-text-muted); margin-bottom: var(--space-4)">Sample content for layout checks only: long names, long descriptions, empty description, missing and broken icons.</p>
+      <div class="app-grid">
+        <article class="app-card">
+          <div class="app-card__top">
+            <div class="app-icon" data-initial="S"><img class="app-icon__img" src="../public/brand/logo-mark.svg" alt="" width="64" height="64" loading="lazy"></div>
+            <div class="app-card__title">
+              <h3 class="app-card__name"><a class="app-card__link" href="#">Sample Notes</a></h3>
+              <p class="app-card__dev">Sample Studio</p>
+            </div>
+          </div>
+          <p class="app-card__desc">Quick notes that sync between your devices and work offline.</p>
+          <div class="app-card__foot"><span class="badge badge--android">Android</span><span class="app-card__action" aria-hidden="true">View</span></div>
+        </article>
+        <article class="app-card">
+          <div class="app-card__top">
+            <div class="app-icon app-icon--fallback" data-initial="S"></div>
+            <div class="app-card__title">
+              <h3 class="app-card__name"><a class="app-card__link" href="#">Sample Radio</a></h3>
+              <p class="app-card__dev">Example Media</p>
+            </div>
+          </div>
+          <p class="app-card__desc">Listen to live stations from around the world.</p>
+          <div class="app-card__foot"><span class="badge badge--ios">iOS</span><span class="app-card__action" aria-hidden="true">Get</span></div>
+        </article>
+        <article class="app-card">
+          <div class="app-card__top">
+            <div class="app-icon" data-initial="A"><img class="app-icon__img" src="../public/brand/logo-mark.svg" alt="" width="64" height="64" loading="lazy"></div>
+            <div class="app-card__title">
+              <h3 class="app-card__name"><a class="app-card__link" href="#">A Very Long Application Name That Keeps Going Past Two Lines Of Text</a></h3>
+              <p class="app-card__dev">An Extremely Long Developer Or Publisher Name Ltd</p>
+            </div>
+          </div>
+          <p class="app-card__desc">This description is intentionally long so we can confirm it is cut off after two lines and never pushes the footer down or makes this card taller than its neighbours in the row.</p>
+          <div class="app-card__foot"><span class="badge badge--android">Android</span><span class="app-card__action" aria-hidden="true">View</span></div>
+        </article>
+        <article class="app-card">
+          <div class="app-card__top">
+            <div class="app-icon" data-initial="B"><img class="app-icon__img" src="missing-icon.png" alt="" width="64" height="64"></div>
+            <div class="app-card__title">
+              <h3 class="app-card__name"><a class="app-card__link" href="#">Broken Icon App</a></h3>
+              <p class="app-card__dev">Sample Studio</p>
+            </div>
+          </div>
+          <p class="app-card__desc">This icon URL does not exist, so the lettered fallback should appear.</p>
+          <div class="app-card__foot"><span class="badge badge--android">Android</span><span class="app-card__action" aria-hidden="true">View</span></div>
+        </article>
+        <article class="app-card">
+          <div class="app-card__top">
+            <div class="app-icon" data-initial="N"><img class="app-icon__img" src="../public/brand/logo-mark.svg" alt="" width="64" height="64" loading="lazy"></div>
+            <div class="app-card__title">
+              <h3 class="app-card__name"><a class="app-card__link" href="#">No Description</a></h3>
+              <p class="app-card__dev">Sample Studio</p>
+            </div>
+          </div>
+          <p class="app-card__desc"></p>
+          <div class="app-card__foot"><span class="badge badge--ios">iOS</span><span class="app-card__action" aria-hidden="true">Get</span></div>
+        </article>
+        <article class="app-card">
+          <div class="app-card__top">
+            <div class="app-icon app-icon--fallback" data-initial="T"></div>
+            <div class="app-card__title">
+              <h3 class="app-card__name"><a class="app-card__link" href="#">Tiny</a></h3>
+              <p class="app-card__dev">Solo Dev</p>
+            </div>
+          </div>
+          <p class="app-card__desc">One line.</p>
+          <div class="app-card__foot"><span class="badge badge--android">Android</span><span class="app-card__action" aria-hidden="true">View</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="sg-section" aria-labelledby="sg-loading">
+      <h2 id="sg-loading">Loading</h2>
+      <p class="sg-label">Skeleton grid (same height as real cards, so nothing shifts)</p>
+      <div class="app-grid" id="skeleton-grid" aria-busy="true">
+        <span class="visually-hidden" role="status">Loading apps…</span>
+        <article class="app-card" aria-hidden="true">
+          <div class="app-card__top">
+            <div class="app-icon skeleton"></div>
+            <div class="skeleton-title"><span class="skeleton skeleton--line is-tall skeleton--medium"></span><span class="skeleton skeleton--line skeleton--short"></span></div>
+          </div>
+          <div class="skeleton-desc"><span class="skeleton skeleton--line"></span><span class="skeleton skeleton--line skeleton--medium"></span></div>
+          <div class="app-card__foot"><span class="skeleton skeleton--badge"></span><span class="skeleton skeleton--pill"></span></div>
+        </article>
+        <article class="app-card" aria-hidden="true">
+          <div class="app-card__top">
+            <div class="app-icon skeleton"></div>
+            <div class="skeleton-title"><span class="skeleton skeleton--line is-tall skeleton--medium"></span><span class="skeleton skeleton--line skeleton--short"></span></div>
+          </div>
+          <div class="skeleton-desc"><span class="skeleton skeleton--line"></span><span class="skeleton skeleton--line skeleton--medium"></span></div>
+          <div class="app-card__foot"><span class="skeleton skeleton--badge"></span><span class="skeleton skeleton--pill"></span></div>
+        </article>
+        <article class="app-card" aria-hidden="true">
+          <div class="app-card__top">
+            <div class="app-icon skeleton"></div>
+            <div class="skeleton-title"><span class="skeleton skeleton--line is-tall skeleton--medium"></span><span class="skeleton skeleton--line skeleton--short"></span></div>
+          </div>
+          <div class="skeleton-desc"><span class="skeleton skeleton--line"></span><span class="skeleton skeleton--line skeleton--medium"></span></div>
+          <div class="app-card__foot"><span class="skeleton skeleton--badge"></span><span class="skeleton skeleton--pill"></span></div>
+        </article>
+      </div>
+      <p class="sg-label">Inline loading</p>
+      <p class="loading"><span class="spinner" aria-hidden="true"></span> Loading your apps…</p>
+    </section>
+
+    <section class="sg-section" aria-labelledby="sg-alerts">
+      <h2 id="sg-alerts">Alerts</h2>
+      <div class="form" style="max-width: 560px">
+        <div class="alert alert--success" role="status"><div class="alert__body"><p class="alert__title">App published</p><p class="alert__text">Your app is now visible in the store.</p></div></div>
+        <div class="alert alert--danger" role="alert"><div class="alert__body"><p class="alert__title">Publishing failed</p><p class="alert__text">We could not save your app. Check your connection and try again.</p><div class="alert__actions"><button class="btn btn--secondary btn--sm">Try again</button></div></div></div>
+        <div class="alert alert--warning"><div class="alert__body"><p class="alert__title">Download link may not work</p><p class="alert__text">Make sure the file is shared as “Anyone with the link”.</p></div></div>
+        <div class="alert alert--info"><div class="alert__body"><p class="alert__text">iOS apps are distributed through the App Store or TestFlight.</p></div></div>
+      </div>
+    </section>
+
+    <section class="sg-section" aria-labelledby="sg-toasts">
+      <h2 id="sg-toasts">Toasts</h2>
+      <div class="sg-row">
+        <button class="btn btn--secondary" data-toast="success">Success toast</button>
+        <button class="btn btn--secondary" data-toast="error">Error toast</button>
+        <button class="btn btn--secondary" data-toast="info">Info toast</button>
+        <button class="btn btn--secondary" data-toast="warning">Warning toast</button>
+      </div>
+    </section>
+
+    <section class="sg-section" aria-labelledby="sg-states">
+      <h2 id="sg-states">Empty and error states</h2>
+      <div class="form">
+      <div class="state state--boxed">
+        <div class="state__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"/></svg></div>
+        <h3 class="state__title">No apps yet</h3>
+        <p class="state__text">Apps you publish will appear here. It only takes a minute to add your first one.</p>
+        <div class="state__actions"><a class="btn btn--primary" href="#">Publish app</a></div>
+      </div>
+      <div class="state state--boxed">
+        <div class="state__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></div>
+        <h3 class="state__title">No results for “xyz”</h3>
+        <p class="state__text">Check the spelling, try a shorter search, or clear the platform filter.</p>
+        <div class="state__actions"><button class="btn btn--secondary">Clear search</button></div>
+      </div>
+      <div class="state state--boxed state--error">
+        <div class="state__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4l9 16H3z"/><path d="M12 10v4.5M12 17.5v.01"/></svg></div>
+        <h3 class="state__title">Could not load apps</h3>
+        <p class="state__text">Something went wrong on our side. Your apps are safe.</p>
+        <div class="state__actions"><button class="btn btn--primary">Try again</button></div>
+      </div>
+      <div class="state state--boxed state--error">
+        <div class="state__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3.5h7l4 4V20.5H7z"/><path d="M10 12l4 4m0-4l-4 4"/></svg></div>
+        <h3 class="state__title">This file is unavailable</h3>
+        <p class="state__text">The download link no longer works. The developer may have moved or removed the file.</p>
+        <div class="state__actions"><a class="btn btn--secondary" href="#">Back to store</a></div>
+      </div>
+      <div class="state state--boxed">
+        <div class="state__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></div>
+        <h3 class="state__title">Your session expired</h3>
+        <p class="state__text">For your security you were signed out. Sign in again to continue where you left off.</p>
+        <div class="state__actions"><a class="btn btn--primary" href="#">Sign in</a></div>
+      </div>
+      </div>
+    </section>
+
+    <section class="sg-section" aria-labelledby="sg-upload">
+      <h2 id="sg-upload">Upload areas</h2>
+      <form class="form sg-form" style="max-width: 560px" novalidate onsubmit="return false">
+        <div class="field upload" data-upload data-max="1" data-max-mb="2" data-min-px="512" data-square="true" data-noun="icon">
+          <span class="field__label is-required" id="icon-label">App icon</span>
+          <label class="dropzone">
+            <input class="visually-hidden" id="icon-input" type="file" name="icon" accept="image/png,image/jpeg,image/webp" aria-labelledby="icon-label" aria-describedby="icon-hint icon-err">
+            <svg class="dropzone__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V4m0 0L8 8m4-4l4 4M4 15v3.5A1.5 1.5 0 005.5 20h13a1.5 1.5 0 001.5-1.5V15"/></svg>
+            <span class="dropzone__title"><strong>Choose an image</strong> or drag it here</span>
+            <span class="dropzone__hint" id="icon-hint">PNG, JPG or WebP. Square, at least 512×512 pixels, up to 2 MB.</span>
+          </label>
+          <ul class="upload__list" role="list"></ul>
+          <p class="field__error" id="icon-err" aria-live="polite"></p>
+        </div>
+
+        <div class="field upload" data-upload data-max="8" data-max-mb="5" data-noun="screenshots" data-removed-name="removed_screenshot_ids">
+          <span class="field__label" id="shots-label">Screenshots</span>
+          <label class="dropzone">
+            <input class="visually-hidden" id="shots-input" type="file" name="screenshots" accept="image/png,image/jpeg,image/webp" multiple aria-labelledby="shots-label" aria-describedby="shots-hint shots-err">
+            <svg class="dropzone__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V4m0 0L8 8m4-4l4 4M4 15v3.5A1.5 1.5 0 005.5 20h13a1.5 1.5 0 001.5-1.5V15"/></svg>
+            <span class="dropzone__title"><strong>Choose images</strong> or drag them here</span>
+            <span class="dropzone__hint" id="shots-hint">PNG, JPG or WebP. Up to 8 screenshots, 5 MB each.</span>
+          </label>
+          <ul class="upload__list" role="list">
+            <li class="upload__item" data-existing data-id="42"><img class="upload__thumb" src="../public/brand/logo-mark.svg" alt="Existing screenshot: screenshot-1.png"><span class="upload__name">screenshot-1.png</span><button type="button" class="upload__remove" aria-label="Remove screenshot-1.png">×</button></li>
+          </ul>
+          <p class="field__hint upload__count"></p>
+          <p class="field__error" id="shots-err" aria-live="polite"></p>
+        </div>
+      </form>
+    </section>
+
+    <section class="sg-section" aria-labelledby="sg-buttons">
+      <h2 id="sg-buttons">Buttons</h2>
+      <p class="sg-label">Variants</p>
+      <div class="sg-row">
+        <button class="btn btn--primary">Publish app</button>
+        <button class="btn btn--secondary">Cancel</button>
+        <button class="btn btn--ghost">Edit</button>
+        <button class="btn btn--danger">Unpublish</button>
+        <a class="btn btn--primary" href="#">Link as button</a>
+      </div>
+      <p class="sg-label">Small, icon, busy, disabled</p>
+      <div class="sg-row">
+        <button class="btn btn--secondary btn--sm">Update</button>
+        <button class="btn btn--ghost btn--icon" aria-label="More actions">
+          <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><circle cx="4" cy="10" r="1.6"/><circle cx="10" cy="10" r="1.6"/><circle cx="16" cy="10" r="1.6"/></svg>
+        </button>
+        <button class="btn btn--primary" aria-busy="true">Publishing…</button>
+        <button class="btn btn--primary" disabled>Disabled</button>
+        <button class="btn btn--secondary" disabled>Disabled</button>
+      </div>
+      <p class="sg-label">Block (mobile primary action)</p>
+      <button class="btn btn--primary btn--block" style="max-width: 420px">Download APK</button>
+    </section>
+
+    <section class="sg-section" aria-labelledby="sg-badges">
+      <h2 id="sg-badges">Badges</h2>
+      <p class="sg-label">Platform</p>
+      <div class="sg-row"><span class="badge badge--android">Android</span><span class="badge badge--ios">iOS</span></div>
+      <p class="sg-label">Status</p>
+      <div class="sg-row">
+        <span class="badge badge--success">Published</span>
+        <span class="badge badge--warning">Draft</span>
+        <span class="badge badge--neutral">Unpublished</span>
+        <span class="badge badge--danger">Failed</span>
+        <span class="badge badge--info">Beta</span>
+      </div>
+    </section>
+
+    <section class="sg-section" aria-labelledby="sg-forms">
+      <h2 id="sg-forms">Form fields</h2>
+      <form class="form sg-form" novalidate onsubmit="return false">
+        <div class="field">
+          <label class="field__label is-required" for="f-name">App name</label>
+          <input class="input" id="f-name" placeholder="e.g. Ethio Tunes" aria-describedby="f-name-hint">
+          <p class="field__hint" id="f-name-hint">Shown on your store listing. Max 50 characters.</p>
+        </div>
+
+        <div class="field">
+          <label class="field__label is-required" for="f-email">Email</label>
+          <input class="input" id="f-email" type="email" value="not-an-email" aria-invalid="true" aria-describedby="f-email-err">
+          <p class="field__error" id="f-email-err">Enter a valid email address, like name@example.com.</p>
+        </div>
+
+        <div class="field">
+          <label class="field__label is-required" for="f-pass">Password</label>
+          <div class="input-group">
+            <input class="input" id="f-pass" type="password" value="secret-pass" autocomplete="current-password">
+            <button type="button" class="input-group__action" id="toggle-pass" aria-label="Show password" aria-pressed="false">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.5 10S4.5 4 10 4s8.5 6 8.5 6-3 6-8.5 6-8.5-6-8.5-6z"/><circle cx="10" cy="10" r="2.5"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label class="field__label" for="f-cat">Category</label>
+            <select class="input" id="f-cat"><option>Productivity</option><option>Games</option><option>Education</option></select>
+          </div>
+          <div class="field">
+            <label class="field__label" for="f-ver">Version</label>
+            <input class="input" id="f-ver" placeholder="1.0.0">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="f-desc">Description</label>
+          <textarea class="input" id="f-desc" placeholder="What does your app do?"></textarea>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="f-dis">Disabled</label>
+          <input class="input" id="f-dis" value="Cannot edit" disabled>
+        </div>
+
+        <label class="check"><input type="checkbox"><span>I confirm I have the right to distribute this app.</span></label>
+
+        <button class="btn btn--primary btn--block" type="submit">Create account</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="../public/ui.js"></script>
+  <script>
+    const msgs = { success: 'App published successfully.', error: 'Could not save your changes. Please try again.', info: 'Link copied to clipboard.', warning: 'This file may be unavailable.' };
+    document.querySelectorAll('[data-toast]').forEach(b => b.addEventListener('click', () => showToast(msgs[b.dataset.toast], { type: b.dataset.toast })));
+    const t = document.getElementById('toggle-pass');
+    t.addEventListener('click', () => {
+      const i = document.getElementById('f-pass');
+      const show = i.type === 'password';
+      i.type = show ? 'text' : 'password';
+      t.setAttribute('aria-pressed', String(show));
+      t.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+    });
+  </script>
+</body>
+</html>
