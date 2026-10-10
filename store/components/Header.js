@@ -1,7 +1,7 @@
 import Logo from './Logo';
 import { getDeveloper } from '@/lib/auth';
 
-export default async function Header({ q = '', platform = '' }) {
+export default async function Header({ q = '', platform = '', tabs = false }) {
   const developer = await getDeveloper();
   const opt = (value, label) => (
     <label className="platform-filter__opt">
@@ -12,7 +12,7 @@ export default async function Header({ q = '', platform = '' }) {
   return (
     <>
       <div className="brand-stripe" />
-      <header className="site-header">
+      <header className={`site-header${tabs ? ' site-header--tabs' : ''}`}>
         <div className="container site-header__inner">
           <Logo className="site-header__brand" />
           <button className="btn btn--secondary btn--icon menu-btn" type="button" data-menu-toggle

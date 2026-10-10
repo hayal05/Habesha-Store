@@ -1,4 +1,4 @@
-import AppCard from './AppCard';
+import AppTile from './AppTile';
 
 export default function AppSection({ id, title, apps, href }) {
   if (!apps.length) return null;
@@ -6,9 +6,9 @@ export default function AppSection({ id, title, apps, href }) {
     <section className="home-section" aria-labelledby={id}>
       <div className="section-head">
         <h2 id={id}>{title}</h2>
-        {href && <a href={href}>View all</a>}
+        {href && <a href={href}>See all</a>}
       </div>
-      <div className="app-grid">{apps.map((a) => <AppCard key={a.id} app={a} />)}</div>
+      <ul className="tile-grid">{apps.map((a) => <AppTile key={a.id} app={a} />)}</ul>
     </section>
   );
 }
