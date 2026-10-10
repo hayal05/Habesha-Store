@@ -140,6 +140,8 @@ _None._
 
 ## Change Log
 
+- **2026-10-11:** App-style landing page. New `AppTile` (icon, name, platform; no description; whole tile is one link), `AppSection` now renders tile grids (3 across on phones, 4 from 600px, 6 from 900px), new `BottomNav` (Home, Search, Publish, Account/Sign in) shown below 900px on the home and search pages, `Header` gained a `tabs` option that hides the menu button on phones, home and search pages reserve space under the tab bar, popular and recent now show 12 apps. CSS section 26. The intro text is kept for screen readers on phones and shown on desktop. Verified on a local Postgres with seed data in Chromium: no overflow at 375px, no descriptions on the landing page, last tile 40px clear of the tab bar at the end of the page, tab bar hidden and 6-column grid on desktop.
+
 - **2026-10-11:** Fixed redirects on Render (Download APK, logout and every other form post went to `localhost:10000`). Cause: routes built absolute URLs from `request.url`, which behind a proxy is the server's internal address. New `lib/redirect.js` sends a relative `Location` header instead; used by `api/auth/[action]`, `api/apps/save`, `api/apps/[id]/status`, `api/report` and `apps/[id]/download`. The same-origin check and the dashboard Referer check now also accept `X-Forwarded-Host`. Verified with Render-style headers on port 10000: relative `Location: /`, cross-site posts still 403, session cookies still set on redirects.
 
 - **2026-10-10:** Tasks 23 and 24 (code review, no browser run): see Current Focus. Task 22 browser stress test still needs `npm install`.
