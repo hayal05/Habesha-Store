@@ -1,3 +1,4 @@
+import BottomNav from '@/components/BottomNav';
 import Header from '@/components/Header';
 import AppCard from '@/components/AppCard';
 import { searchApps } from '@/lib/queries';
@@ -26,8 +27,8 @@ export default async function SearchPage({ searchParams }) {
 
   return (
     <>
-      <Header q={f.q} platform={f.platform} />
-      <main id="main" className="container home">
+      <Header q={f.q} platform={f.platform} tabs />
+      <main id="main" className="container home has-tabbar">
         <div className="results-head">
           <h1 aria-live="polite">
             {f.q.trim() ? <>Results for “{f.q.trim()}”</> : catName ? catName : 'All apps'}
@@ -72,6 +73,7 @@ export default async function SearchPage({ searchParams }) {
           </div>
         )}
       </main>
+      <BottomNav active="search" />
     </>
   );
 }
