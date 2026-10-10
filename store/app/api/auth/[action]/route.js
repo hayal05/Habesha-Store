@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { redirectTo } from '@/lib/redirect';
 import { row } from '@/lib/db';
 import { AUTH_ERRORS, validate, hashPassword, verifyPassword, fakeHash, tooMany, forgive, startSession, endSession, safeNext, sameOrigin } from '@/lib/auth';
 
@@ -11,7 +12,7 @@ export async function POST(request, { params }) {
   if (!['signin', 'signup', 'signout'].includes(action)) return new Response('Not found', { status: 404 });
   if (!sameOrigin(request)) return new Response('Forbidden', { status: 403 });
 
-  const go = (path) => NextResponse.redirect(new URL(path, request.url), 303);
+  const go = (path) => redirectTo(path);
   if (action === 'signout') { const res = go('/'); await endSession(request, res); return res; }
 
   const wantsJson = request.headers.get('accept')?.includes('application/json');
