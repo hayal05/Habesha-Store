@@ -140,6 +140,8 @@ _None._
 
 ## Change Log
 
+- **2026-10-11:** Fixed redirects on Render (Download APK, logout and every other form post went to `localhost:10000`). Cause: routes built absolute URLs from `request.url`, which behind a proxy is the server's internal address. New `lib/redirect.js` sends a relative `Location` header instead; used by `api/auth/[action]`, `api/apps/save`, `api/apps/[id]/status`, `api/report` and `apps/[id]/download`. The same-origin check and the dashboard Referer check now also accept `X-Forwarded-Host`. Verified with Render-style headers on port 10000: relative `Location: /`, cross-site posts still 403, session cookies still set on redirects.
+
 - **2026-10-10:** Tasks 23 and 24 (code review, no browser run): see Current Focus. Task 22 browser stress test still needs `npm install`.
 
 - **2026-10-10:** Task 22 (partial, unverified): dashboard list paging and details title clamp, see Current Focus. Code read confirms details page omits the screenshots section when there are none.
