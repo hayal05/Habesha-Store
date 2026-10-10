@@ -94,7 +94,8 @@ export async function getDeveloper() {
 // POSTs must come from this site (blocks cross-site form posts). A missing Origin header is allowed (same-site navigation, curl).
 export function sameOrigin(request) {
   const origin = request.headers.get('origin')?.replace(/^https?:\/\//, '');
-  return origin === undefined || origin === request.headers.get('host');
+  const host = request.headers.get('host'), forwarded = request.headers.get('x-forwarded-host');
+  return origin === undefined || origin === host || origin === forwarded;
 }
 
 // Sign-in address that brings the person back to `next`. `expired` adds the warning: it is only true when a session cookie was
@@ -113,7 +114,7 @@ export function expiredPath(request, fallback) {
   let back = fallback;
   try {
     const from = new URL(request.headers.get('referer'));
-    if (from.host === request.headers.get('host') && /^\/dashboard(\/|$)/.test(from.pathname)) back = safeNext(from.pathname);
+    if ((from.host === request.headers.get('host') || from.host === request.headers.get('x-forwarded-host')) && /^\/dashboard(\/|$)/.test(from.pathname)) back = safeNext(from.pathname);
   } catch {}
   return signInPath(back, request.cookies.has(COOKIE));
 }
