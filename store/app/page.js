@@ -1,4 +1,5 @@
 import Header from '@/components/Header';
+import BottomNav from '@/components/BottomNav';
 import AppSection from '@/components/AppSection';
 import { getHomeData } from '@/lib/queries';
 
@@ -10,8 +11,8 @@ export default async function Home() {
 
   return (
     <>
-      <Header />
-      <main id="main" className="container home">
+      <Header tabs />
+      <main id="main" className="container home has-tabbar">
         <section className="intro" aria-labelledby="intro-title">
           <h1 id="intro-title">Apps for Android and iOS</h1>
           <p>Find an app, check who made it, and download it from the developer’s own link.</p>
@@ -41,6 +42,7 @@ export default async function Home() {
           </>
         )}
       </main>
+      <BottomNav active="home" />
     </>
   );
 }
