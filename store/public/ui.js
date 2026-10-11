@@ -290,4 +290,32 @@
     zone.addEventListener('drop', (e) => { e.preventDefault(); add(e.dataTransfer.files); });
     sync();
   });
+
+  // App details page (Play-style): back, share, "Read more", and the bottom bar that appears once the main button scrolls away.
+  document.querySelectorAll('[data-back]').forEach((a) => a.addEventListener('click', (e) => {
+    if (history.length > 1 && document.referrer.startsWith(location.origin)) { e.preventDefault(); history.back(); }
+  }));
+  document.querySelectorAll('[data-share]').forEach((btn) => btn.addEventListener('click', async () => {
+    const data = { title: btn.dataset.title, url: location.href.split('#')[0] };
+    try {
+      if (navigator.share) { await navigator.share(data); return; }
+      await navigator.clipboard.writeText(data.url);
+      window.showToast('Link copied', { type: 'success', timeout: 2500 });
+    } catch (e) { if (e.name !== 'AbortError') window.showToast('Could not share. Copy the address from your browser.', { type: 'error' }); }
+  }));
+  document.querySelectorAll('[data-clamp]').forEach((box) => {
+    const btn = box.parentElement.querySelector('[data-clamp-toggle]');
+    if (!btn) return;
+    if (box.scrollHeight <= box.clientHeight + 2) { btn.hidden = true; return; }   // short text: nothing to expand
+    btn.hidden = false;
+    btn.addEventListener('click', () => {
+      const open = box.classList.toggle('is-open');
+      btn.textContent = open ? 'Show less' : 'Read more';
+      btn.setAttribute('aria-expanded', open);
+    });
+  });
+  const anchor = document.querySelector('[data-cta-anchor]'), bar = document.querySelector('.action-bar');
+  if (anchor && bar && 'IntersectionObserver' in window) {
+    new IntersectionObserver(([e]) => bar.classList.toggle('is-visible', !e.isIntersecting)).observe(anchor);
+  }
 })();

@@ -800,39 +800,105 @@ select.input {
 .pager { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); margin-top: var(--space-8); color: var(--color-text-muted); font-size: var(--text-sm); }
 @media (min-width: 900px) { .results-bar { grid-template-columns: 1fr auto; align-items: center; } }
 
-/* ---------- 19. App details ---------- */
-.crumbs { font-size: var(--text-sm); color: var(--color-text-subtle); margin-bottom: var(--space-4); }
-.crumbs a { color: var(--color-text-muted); }
-.detail__head { display: grid; grid-template-columns: auto 1fr; gap: var(--space-4); align-items: start; }
-.detail__title { min-width: 0; }
-.detail__title h1 { font-size: var(--text-xl); overflow-wrap: anywhere; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; line-clamp: 3; overflow: hidden; }
-.detail__dev { color: var(--color-text-muted); margin-top: var(--space-1); overflow-wrap: anywhere; }
-.detail__badges { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
-.detail__cta { grid-column: 1 / -1; display: grid; gap: var(--space-2); }
-.detail__cta .btn { width: 100%; }
+/* ---------- 19. App details (Google Play style) ----------
+   Phones: top bar (back, search), hero, scrolling fact strip, full-width pill button + Share, screenshots,
+   About (with Read more), App info, then sideways rails. 1000px+: two columns, the rails become a side list. */
+@media (max-width: 899px) { .desktop-only { display: none !important; } }
+@media (min-width: 900px) { .mobile-only { display: none !important; } }
+
+.appbar { position: sticky; top: 0; z-index: var(--z-header); display: flex; align-items: center; justify-content: space-between; height: 52px; padding-inline: var(--space-2); background: var(--color-surface); }
+.appbar__btn { display: grid; place-items: center; width: 44px; height: 44px; border-radius: var(--radius-full); color: var(--color-text); }
+.appbar__btn:hover { background: var(--neutral-100); }
+.appbar__btn svg { width: 24px; height: 24px; }
+
+.detail { padding-top: var(--space-4); }
+.detail-layout { display: grid; gap: var(--space-8); }
+.detail-main { min-width: 0; }
+.hero { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-4); align-items: center; }
+.hero__icon { --app-icon-size: 72px; }
+.hero__text { min-width: 0; }
+.hero h1 { font-size: var(--text-xl); line-height: 1.2; overflow-wrap: anywhere; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; line-clamp: 3; overflow: hidden; }
+.hero__dev { margin-top: var(--space-1); color: var(--color-primary); font-weight: var(--weight-semibold); overflow-wrap: anywhere; }
+.hero__meta { margin-top: 2px; color: var(--color-text-muted); font-size: var(--text-sm); }
+.hero__meta a { color: inherit; text-decoration: none; }
+.hero__meta a:hover { text-decoration: underline; }
+
+.statbar { display: flex; margin: var(--space-5) 0 0; padding: var(--space-3) 0; overflow-x: auto; scrollbar-width: none; border-block: var(--border); }
+.statbar::-webkit-scrollbar { display: none; }
+.statbar > div { flex: 1 0 auto; min-width: 92px; padding-inline: var(--space-3); display: flex; flex-direction: column; align-items: center; text-align: center; }
+.statbar > div + div { border-left: var(--border); }
+.statbar dd { margin: 0; order: 1; font-weight: var(--weight-semibold); white-space: nowrap; }
+.statbar dt { order: 2; margin-top: 2px; font-size: var(--text-xs); color: var(--color-text-muted); }
+
+.hero__cta { display: grid; gap: var(--space-2); margin-top: var(--space-5); }
+.hero__buttons { display: grid; gap: var(--space-2); }
+.hero__buttons .btn, .action-bar .btn { width: 100%; border-radius: var(--radius-full); }
 .detail__hint { color: var(--color-text-muted); font-size: var(--text-sm); }
-.stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); margin-top: var(--space-6); padding: var(--space-4); background: var(--color-surface); border: var(--border); border-radius: var(--radius-lg); }
-.stats dt { font-size: var(--text-xs); color: var(--color-text-subtle); text-transform: uppercase; letter-spacing: .04em; }
-.stats dd { margin: var(--space-1) 0 0; font-weight: var(--weight-semibold); overflow-wrap: anywhere; }
+.hero__buttons .detail__hint { text-align: center; }
+.textbtn { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); min-height: 44px; padding-inline: var(--space-3); border: 0; background: none; border-radius: var(--radius-full); color: var(--color-primary); font: inherit; font-weight: var(--weight-semibold); cursor: pointer; }
+.textbtn:hover { background: var(--color-primary-soft); }
+.textbtn svg { width: 20px; height: 20px; }
+.textbtn[hidden] { display: none; }
+.textbtn--link { margin-left: calc(-1 * var(--space-3)); margin-top: var(--space-1); }
+
 .detail__section { margin-top: var(--space-8); }
 .detail__section > h2 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
 .shots { list-style: none; margin: 0; padding: 0 0 var(--space-2); display: flex; gap: var(--space-3); overflow-x: auto; scroll-snap-type: x proximity; overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch; }
 .shots li { flex: none; scroll-snap-align: start; }
-.shots img { display: block; height: 320px; width: auto; max-width: 80vw; min-width: 150px; object-fit: contain; background: var(--color-surface-muted); border: var(--border); border-radius: var(--radius-md); }
-.detail__summary { font-weight: var(--weight-medium); margin-bottom: var(--space-3); }
+.shots img { display: block; height: 300px; width: auto; max-width: 78vw; min-width: 140px; object-fit: contain; background: var(--color-surface-muted); border: var(--border); border-radius: var(--radius-lg); }
+
+.detail__summary { font-weight: var(--weight-semibold); margin-bottom: var(--space-3); }
 .prose { max-width: 70ch; white-space: pre-line; overflow-wrap: anywhere; }
 .prose + .prose { margin-top: var(--space-3); }
-.detail__report { margin-top: var(--space-10); font-size: var(--text-sm); }
-.detail__report a { color: var(--color-text-subtle); }
-@media (min-width: 600px) { .stats { grid-template-columns: repeat(4, 1fr); } .shots img { height: 400px; } }
+/* Long text is cut to a few lines only when JavaScript can offer "Read more"; without it the whole text shows. */
+.has-js .about:not(.is-open) { max-height: 9.5em; overflow: hidden; -webkit-mask-image: linear-gradient(#000 70%, transparent); mask-image: linear-gradient(#000 70%, transparent); }
+.tags { margin-top: var(--space-3); display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.tag { display: inline-flex; align-items: center; min-height: 32px; padding-inline: var(--space-3); border: var(--border); border-radius: var(--radius-full); color: var(--color-text); font-size: var(--text-sm); text-decoration: none; }
+.tag:hover { border-color: var(--color-primary); color: var(--color-primary); }
+
+.info { margin: 0; display: grid; gap: var(--space-4); }
+.info dt { font-size: var(--text-sm); color: var(--color-text-muted); }
+.info dd { margin: 2px 0 0; font-weight: var(--weight-medium); overflow-wrap: anywhere; }
+@media (min-width: 600px) { .info { grid-template-columns: repeat(2, minmax(0, 1fr)); } .shots img { height: 380px; } }
+
+.detail__report { margin-top: var(--space-6); font-size: var(--text-sm); }
+.detail__report a { display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px; color: var(--color-text-muted); text-decoration: none; }
+.detail__report a:hover { color: var(--color-text); }
+.detail__report svg { width: 20px; height: 20px; }
+
+/* Rails: icon above name on phones, icon beside name in the desktop side column. */
+.rail { list-style: none; margin: 0; padding: 0 0 var(--space-2); display: flex; gap: var(--space-4); overflow-x: auto; scrollbar-width: none; overscroll-behavior-x: contain; }
+.rail::-webkit-scrollbar { display: none; }
+.rail li { flex: none; width: 96px; }
+.rail-item { display: grid; justify-items: center; gap: var(--space-2); color: var(--color-text); text-align: center; text-decoration: none; }
+.rail-item .app-icon { --app-icon-size: 80px; }
+.rail-item__text { display: grid; gap: 2px; max-width: 100%; }
+.rail-item__name { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; font-size: var(--text-sm); font-weight: var(--weight-medium); line-height: 1.3; overflow-wrap: anywhere; }
+.rail-item__meta { font-size: var(--text-xs); color: var(--color-text-subtle); }
+.rail-item:hover .rail-item__name { color: var(--color-primary); }
+
 @media (min-width: 900px) {
-  .detail__head { grid-template-columns: auto 1fr minmax(220px, 280px); gap: var(--space-6); align-items: center; }
-  .detail__cta { grid-column: auto; }
+  .detail { padding-top: var(--space-6); }
+  .hero { gap: var(--space-6); }
+  .hero__icon { --app-icon-size: 128px; }
+  .hero h1 { font-size: var(--text-2xl); }
+  .hero__cta { grid-template-columns: minmax(200px, 260px) auto; justify-content: start; align-items: start; gap: var(--space-4); }
+  .statbar { margin-top: var(--space-6); }
+  .shots img { height: 420px; }
+}
+@media (min-width: 1000px) {
+  .detail-layout { grid-template-columns: minmax(0, 1fr) 300px; gap: var(--space-10); align-items: start; }
+  .detail-side .detail__section:first-child { margin-top: 0; }
+  .rail { flex-direction: column; overflow: visible; gap: var(--space-2); }
+  .rail li { width: auto; }
+  .rail-item { grid-template-columns: 56px minmax(0, 1fr); justify-items: start; align-items: center; gap: var(--space-3); padding: var(--space-2); border-radius: var(--radius-md); text-align: left; }
+  .rail-item:hover { background: var(--neutral-100); }
+  .rail-item .app-icon { --app-icon-size: 56px; }
 }
 
-/* ---------- 20. Mobile sticky action bar ----------
-   Lives at the end of the page in normal flow and sticks to the bottom edge while scrolling,
-   so at the end of the page it simply sits below the content: nothing is ever covered. */
+/* ---------- 20. Mobile bottom bar ----------
+   Shown on phones once the main button has scrolled out of view (ui.js adds .is-visible). It lives at the end of
+   the page in normal flow and sticks to the bottom edge, so at the end of the page it sits below the content. */
 .action-bar {
   position: sticky; bottom: 0; z-index: var(--z-sticky);
   display: grid; gap: var(--space-1);
@@ -841,11 +907,11 @@ select.input {
   padding: var(--space-3) var(--page-gutter) calc(var(--space-3) + env(safe-area-inset-bottom, 0px));
   background: var(--color-surface); border-top: var(--border); box-shadow: 0 -4px 12px rgb(0 0 0 / 0.06);
 }
-.action-bar .btn { width: 100%; }
 .action-bar .detail__hint { font-size: var(--text-xs); text-align: center; }
+.has-js .action-bar:not(.is-visible) { display: none; }
 html:has(.action-bar) { scroll-padding-bottom: 7rem; }   /* focused items scroll clear of the bar */
-@media (max-width: 899px) { .detail__cta { display: none; } .detail { padding-bottom: 0; } }
-@media (min-width: 900px) { .action-bar { display: none; } html:has(.action-bar) { scroll-padding-bottom: 0; } }
+@media (max-width: 899px) { .detail { padding-bottom: 0; } }
+@media (min-width: 900px) { .action-bar { display: none !important; } html:has(.action-bar) { scroll-padding-bottom: 0; } }
 
 /* ---------- 21. Auth screens: sign in, sign up ----------
    Brand panel (desktop only) beside one compact card; on mobile the logo sits above the card.

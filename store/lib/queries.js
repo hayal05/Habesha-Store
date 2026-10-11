@@ -197,3 +197,18 @@ export function saveApp(developerId, existing, v, shotUrls, removedIds) {
     return { id, gone };
   });
 }
+
+// Other published apps by the same developer (details page rail).
+export async function getMoreByDeveloper(app, limit = 8) {
+  return rows(`${CARD}
+    WHERE a.developer_id = $1 AND a.id <> $2 AND a.status = 'published'
+    ORDER BY a.updated_at DESC, a.id DESC LIMIT ${limit}`, [app.developer_id, app.id]);
+}
+
+// Published apps in the same category from other developers (details page rail).
+export async function getSimilarApps(app, limit = 8) {
+  if (!app.category_id) return [];
+  return rows(`${CARD}
+    WHERE a.category_id = $1 AND a.id <> $2 AND a.developer_id <> $3 AND a.status = 'published'
+    ORDER BY a.updated_at DESC, a.id DESC LIMIT ${limit}`, [app.category_id, app.id, app.developer_id]);
+}
