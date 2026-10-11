@@ -303,6 +303,20 @@
       window.showToast('Link copied', { type: 'success', timeout: 2500 });
     } catch (e) { if (e.name !== 'AbortError') window.showToast('Could not share. Copy the address from your browser.', { type: 'error' }); }
   }));
+  // QR code: the link downloads an SVG by itself; with JavaScript we offer a PNG instead (easier to print and send).
+  document.querySelectorAll('[data-qr-download]').forEach((a) => a.addEventListener('click', (e) => {
+    const svg = a.closest('.qr') && a.closest('.qr').querySelector('.qr__code svg');
+    if (!svg || !window.HTMLCanvasElement) return;
+    e.preventDefault();
+    const img = new Image();
+    img.onload = () => {
+      const c = document.createElement('canvas'); c.width = c.height = 1024;
+      const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, 1024, 1024); x.imageSmoothingEnabled = false; x.drawImage(img, 0, 0, 1024, 1024);
+      c.toBlob((blob) => { const u = URL.createObjectURL(blob), l = document.createElement('a'); l.href = u; l.download = a.dataset.name + '-qr.png'; l.click(); setTimeout(() => URL.revokeObjectURL(u), 1500); });
+    };
+    img.onerror = () => { window.location.href = a.href; };
+    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(new XMLSerializer().serializeToString(svg));
+  }));
   document.querySelectorAll('[data-clamp]').forEach((box) => {
     const btn = box.parentElement.querySelector('[data-clamp-toggle]');
     if (!btn) return;

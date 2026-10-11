@@ -70,7 +70,8 @@ export async function getApp(id) {
   const n = toId(id);
   if (!n) return null;
   const app = await row(`
-    SELECT a.*, d.name AS developer, c.name AS category, c.slug AS category_slug
+    SELECT a.*, d.name AS developer, c.name AS category, c.slug AS category_slug,
+           (SELECT COUNT(*) FROM download_clicks k WHERE k.app_id = a.id)::int AS downloads
     FROM apps a JOIN developers d ON d.id = a.developer_id LEFT JOIN categories c ON c.id = a.category_id
     WHERE a.id = $1 AND a.status = 'published'`, [n]);
   if (!app) return null;

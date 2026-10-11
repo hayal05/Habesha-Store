@@ -4,8 +4,9 @@ import DetailBar from '@/components/DetailBar';
 import DownloadAction from '@/components/DownloadAction';
 import AppUnavailable from '@/components/AppUnavailable';
 import AppRail from '@/components/AppRail';
+import AppQr from '@/components/AppQr';
 import { getApp, getMoreByDeveloper, getSimilarApps, isUnpublished } from '@/lib/queries';
-import { actionFor, formatDate, formatSize } from '@/lib/format';
+import { actionFor, formatDate, formatDownloads, formatSize } from '@/lib/format';
 
 export const dynamic = 'force-dynamic';
 
@@ -35,12 +36,13 @@ export default async function AppPage({ params }) {
   const stats = [
     [formatSize(app.file_size), 'Size'],
     [app.version, 'Version'],
+    [formatDownloads(app.downloads), 'Downloads'],   // sits in the middle of the strip, between Size and Updated
     [app.min_os, 'Requires'],
     [updated, 'Updated'],
   ].filter(([v]) => v);
   const paragraphs = app.description.split(/\n{2,}/).map((t) => t.trim()).filter(Boolean);
   const info = [
-    ['Version', app.version], ['Updated on', updated], ['Requires', app.min_os], ['Size', formatSize(app.file_size)],
+    ['Version', app.version], ['Downloads', formatDownloads(app.downloads)], ['Updated on', updated], ['Requires', app.min_os], ['Size', formatSize(app.file_size)],
     ['Platform', isIos ? 'iOS' : 'Android'], ['Get it from', action.kind], ['Offered by', app.developer],
   ].filter(([, v]) => v);
 
@@ -75,7 +77,10 @@ export default async function AppPage({ params }) {
               <div className="hero__buttons">
                 <DownloadAction app={app} action={action} />
               </div>
-              <button className="textbtn" type="button" data-share data-title={app.name}>{SHARE_ICON}<span>Share</span></button>
+              <div className="hero__more">
+                <button className="textbtn" type="button" data-share data-title={app.name}>{SHARE_ICON}<span>Share</span></button>
+                <AppQr app={app} />
+              </div>
             </div>
 
             {app.screenshots.length > 0 && (

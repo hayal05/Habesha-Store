@@ -882,7 +882,7 @@ select.input {
   .hero { gap: var(--space-6); }
   .hero__icon { --app-icon-size: 128px; }
   .hero h1 { font-size: var(--text-2xl); }
-  .hero__cta { grid-template-columns: minmax(200px, 260px) auto; justify-content: start; align-items: start; gap: var(--space-4); }
+  .hero__cta { grid-template-columns: minmax(200px, 260px) minmax(0, 1fr); justify-content: start; align-items: start; gap: var(--space-4); }
   .statbar { margin-top: var(--space-6); }
   .shots img { height: 420px; }
 }
@@ -894,6 +894,29 @@ select.input {
   .rail-item { grid-template-columns: 56px minmax(0, 1fr); justify-items: start; align-items: center; gap: var(--space-3); padding: var(--space-2); border-radius: var(--radius-md); text-align: left; }
   .rail-item:hover { background: var(--neutral-100); }
   .rail-item .app-icon { --app-icon-size: 56px; }
+}
+
+/* Share + QR row. The QR is a <details>: a tiny code and label when closed, a scannable code and download when open. */
+.hero__more { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--space-2) var(--space-4); }
+.qr { flex: 0 0 auto; }
+.qr[open] { flex-basis: 100%; }
+.qr__summary { display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px; padding-inline: var(--space-2); border-radius: var(--radius-full); color: var(--color-primary); font-weight: var(--weight-semibold); cursor: pointer; list-style: none; }
+.qr__summary::-webkit-details-marker { display: none; }
+.qr__summary:hover { background: var(--color-primary-soft); }
+.qr__thumb { display: block; width: 28px; height: 28px; border: var(--border); border-radius: 4px; overflow: hidden; background: #fff; line-height: 0; }
+.qr__thumb svg { width: 100%; height: 100%; }
+.qr[open] .qr__summary { display: flex; width: fit-content; margin-inline: auto; }
+.qr__panel { display: grid; justify-items: center; gap: var(--space-3); margin-top: var(--space-2); padding: var(--space-4); background: var(--color-surface); border: var(--border); border-radius: var(--radius-lg); }
+.qr__code { width: 200px; max-width: 100%; line-height: 0; border: var(--border); border-radius: var(--radius-md); overflow: hidden; background: #fff; }
+.qr__code svg { width: 100%; height: auto; }
+.qr__text { color: var(--color-text-muted); font-size: var(--text-sm); text-align: center; max-width: 28ch; }
+
+@media (min-width: 900px) {   /* desktop: left-aligned row, the open code floats as a small popover */
+  .hero__more { justify-content: flex-start; }
+  .qr { position: relative; }
+  .qr[open] { flex-basis: auto; }
+  .qr[open] .qr__summary { display: inline-flex; margin-inline: 0; }
+  .qr__panel { position: absolute; top: 100%; left: 0; z-index: 5; box-shadow: var(--shadow-md); }
 }
 
 /* ---------- 20. Mobile bottom bar ----------
